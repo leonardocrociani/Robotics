@@ -8,8 +8,9 @@ import cv2
 import numpy as np
 import math
 
-ERROR_TYPE = 'x-axis'
-ERROR_TYPE = 'distance'
+# ERROR_TYPE = 'x-axis'
+# ERROR_TYPE = 'distance'
+ERROR_TYPE = 'angle'
 
 class Planner:
 
@@ -84,6 +85,16 @@ class Planner:
             current_error = (distance + max_distance) / max_distance - 1
             # distanza dal centro può essere negativa, indicando che il centroiude è nell'altro semipiano
             current_error = current_error if offset > 0 else -current_error 
+
+        # ---- Error 3: angle (testing) ----
+        elif ERROR_TYPE == 'angle':
+            car_position = (math.floor(width / 2), height - 1)
+            distance = math.dist(car_position, centroid)
+            angle = math.asin((centroid[0] - car_position[0]) / distance)
+            angle_degrees = angle * 180 / math.pi
+            angle_normalized = (angle_degrees + 90) / 90 - 1
+            current_error = angle_normalized
+            # rospy.loginfo(f"Angle in degree: {angle_degrees }; Angle norm: {angle_normalized}")
 
         return current_error
 

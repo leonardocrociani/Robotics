@@ -42,4 +42,8 @@
     <node pkg="line_tracking_race" type="controller.py" name="controller" output="screen">
     </node>
 
+    <!-- Plotter Node -->
+    <node pkg="line_tracking_race" type="plotter.py" name="plotter" output="screen">
+    </node>
+
 </launch>
