@@ -1,14 +1,7 @@
 #!/usr/bin/python
 
-import os
-from datetime import datetime
-import csv
-
 import rospy
-import rospkg
 import std_msgs.msg
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 
 class Controller:
 
@@ -61,8 +54,7 @@ class Controller:
             return
 
         dt = (time_now - self.time_prev).to_sec()
-
-        self.accumulated_integral += dt * (error + self.prev_error) / 2
+        self.accumulated_integral += error * dt # forward euler
 
         p_term = self.k_p * error
         i_term = self.k_i * self.accumulated_integral

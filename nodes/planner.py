@@ -5,7 +5,6 @@ import sensor_msgs.msg
 import std_msgs.msg
 from cv_bridge import CvBridge
 import cv2
-import numpy as np
 import math
 
 # ERROR_TYPE = 'x-axis'

@@ -1,11 +1,6 @@
 #!/usr/bin/python
 
-import os
-from datetime import datetime
-import csv
-
 import rospy
-import rospkg
 import std_msgs.msg
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
