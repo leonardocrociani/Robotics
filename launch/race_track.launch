@@ -3,7 +3,6 @@
     <env name="GAZEBO_MODEL_PATH"
         value="${GAZEBO_MODEL_PATH}:$(find line_tracking_race)/models/track" />
 
-
     <!-- Arguments that can be passed also from command line -->
     <arg name="paused" default="false" />
     <!-- Add here your robot's parameters -->
@@ -34,4 +33,13 @@
 
     <!-- Include controller launch file launch file -->
     <include file="$(find line_tracking_race)/launch/car_control_interface.launch" />
+
+    <!-- Planner Node -->
+    <node pkg="line_tracking_race" type="planner.py" name="planner" output="screen">
+    </node>
+
+    <!-- Controller Node -->
+    <node pkg="line_tracking_race" type="controller.py" name="controller" output="screen">
+    </node>
+
 </launch>
