@@ -8,6 +8,9 @@ import cv2
 import numpy as np
 import math
 
+ERROR_TYPE = 'x-axis'
+ERROR_TYPE = 'distance'
+
 class Planner:
 
     def __init__(self):
@@ -68,9 +71,19 @@ class Planner:
     def compute_current_error (self, centroid, camera_center, width, height):
 
         # ---- Error 1: x-axis ----
-        offset = centroid[0] - camera_center[0] 
-        max_offset = width / 2
-        current_error = (offset + max_offset) / max_offset - 1
+        if ERROR_TYPE == 'x-axis':
+            offset = centroid[0] - camera_center[0] 
+            max_offset = width / 2
+            current_error = (offset + max_offset) / max_offset - 1
+
+        # ---- Error 2: distamce ----
+        elif ERROR_TYPE == 'distance':
+            offset = centroid[0] - camera_center[0] 
+            distance = math.dist(centroid, camera_center)
+            max_distance = width
+            current_error = (distance + max_distance) / max_distance - 1
+            # distanza dal centro può essere negativa, indicando che il centroiude è nell'altro semipiano
+            current_error = current_error if offset > 0 else -current_error 
 
         return current_error
 
