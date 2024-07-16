@@ -1,0 +1,3 @@
+float64 x_axis_error
+float64 distance_error
+float64 angle_error

@@ -5,9 +5,22 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  message_generation
 )
 
-catkin_package()
+add_message_files(
+  FILES
+  Errors.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+
+catkin_package(
+  CATKIN_DEPENDS message_runtime
+)
 
 # Uncomment if you want to use include directory
 include_directories(

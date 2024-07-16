@@ -1,5 +1,4 @@
 <launch>
-
     <env name="GAZEBO_MODEL_PATH"
         value="${GAZEBO_MODEL_PATH}:$(find line_tracking_race)/models/track" />
 
@@ -10,6 +9,10 @@
     <arg name="y_pos" default="0.0" />
     <arg name="z_pos" default="0.45" />
     <arg name="yaw" default="3.142" />
+    <arg name="Kp" default="1.0" />
+    <arg name="Ki" default="0.01" />
+    <arg name="Kd" default="0.1" />
+    <arg name="error_type" default="x-axis"/>
 
     <!-- Launch World -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -40,10 +43,17 @@
 
     <!-- Controller Node -->
     <node pkg="line_tracking_race" type="controller.py" name="controller" output="screen">
+        <param name="error_type" value="$(arg error_type)"/>
+        <param name="Kp" value="$(arg Kp)"/>
+        <param name="Ki" value="$(arg Ki)"/>
+        <param name="Kd" value="$(arg Kd)"/>
     </node>
 
-    <!-- Plotter Node -->
-    <node pkg="line_tracking_race" type="plotter.py" name="plotter" output="screen">
+    <!-- Monitor Node -->
+    <node pkg="line_tracking_race" type="monitor.py" name="monitor" output="screen">
+        <param name="error_type" value="$(arg error_type)"/>
+        <param name="Kp" value="$(arg Kp)"/>
+        <param name="Ki" value="$(arg Ki)"/>
+        <param name="Kd" value="$(arg Kd)"/>
     </node>
-
 </launch>
